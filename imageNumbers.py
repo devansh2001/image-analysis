@@ -2,7 +2,7 @@ from PIL import Image
 
 def main():
     # Use PIL to access image data
-    img = Image.open('Cube.png').convert('L')
+    img = Image.open('hand2.jpg').convert(mode='L', dither=Image.NONE)
 
     # Get image dimensions
     width, height = img.size
@@ -24,24 +24,27 @@ def main():
     for i in xrange(0,4):
         for j in xrange(0,4):
             mySum = 0
-            for x in xrange(xMax * i, xMax * (i + 1)):
-                for y in xrange(yMax * j, yMax * (j + 1)):
+            for x in xrange(yMax * i, yMax * (i + 1)):
+                for y in xrange(xMax * j, xMax * (j + 1)):
                     mySum += data[x][y]
             avg = mySum / (xMax * yMax)
             matrix[i][j] = avg
             avg = 0
 
     # Display results
-    count = 0
-    row = 0
-    col = 0
-    for a in matrix:
-        for b in a:
-            print "Element[%d][%d]: %d" %(row, col, b)
-            col += 1
-            count += 1
-        row += 1
-        col = 0
+    print matrix
+
+
+    # count = 0
+    # row = 0
+    # col = 0
+    # for a in matrix:
+    #     for b in a:
+    #         print "Element[%d][%d]: %d" %(row, col, b)
+    #         col += 1
+    #         count += 1
+    #     row += 1
+    #     col = 0
 
 if __name__ == '__main__':
     main()
