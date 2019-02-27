@@ -1,8 +1,10 @@
 from PIL import Image
 
-def main():
+
+def getImageAnalysis(imgName):
     # Use PIL to access image data
-    img = Image.open('Cube.png').convert(mode='L', dither=Image.NONE)
+    img = Image.open(imgName).convert(mode='L', dither=Image.NONE)
+
 
     # Get image dimensions
     width, height = img.size
@@ -46,6 +48,9 @@ def main():
     #         count += 1
     #     row += 1
     #     col = 0
+
+def main():
+    getImageAnalysis('redHand.png')
 
 if __name__ == '__main__':
     main()
