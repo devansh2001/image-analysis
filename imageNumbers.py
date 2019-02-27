@@ -32,7 +32,8 @@ def main():
             avg = 0
 
     # Display results
-    print matrix
+    for x in xrange(0, 4):
+        print matrix[x]
 
 
     # count = 0
