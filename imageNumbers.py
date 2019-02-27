@@ -2,7 +2,7 @@ from PIL import Image
 
 def main():
     # Use PIL to access image data
-    img = Image.open('hand2.jpg').convert(mode='L', dither=Image.NONE)
+    img = Image.open('redHand.png').convert(mode='L', dither=Image.NONE)
 
     # Get image dimensions
     width, height = img.size
