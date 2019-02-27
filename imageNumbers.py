@@ -1,15 +1,14 @@
 from PIL import Image
 
-
 def getImageAnalysis(imgName):
-    # Use PIL to access image data
-    img = Image.open(imgName).convert(mode='L', dither=Image.NONE)
+    print 'IMAGE: ' + imgName
 
+    # Use PIL to access image data
+    img = Image.open(imgName).convert(mode = 'L', dither = Image.NONE)
 
     # Get image dimensions
     width, height = img.size
-    print width
-    print height
+    print 'Width: ' + str(width) + 'px -- Height: ' + str(height) + 'px'
 
     # Get width, height of each unit of the 16-images
     xMax = width / 4
@@ -37,20 +36,9 @@ def getImageAnalysis(imgName):
     for x in xrange(0, 4):
         print matrix[x]
 
-
-    # count = 0
-    # row = 0
-    # col = 0
-    # for a in matrix:
-    #     for b in a:
-    #         print "Element[%d][%d]: %d" %(row, col, b)
-    #         col += 1
-    #         count += 1
-    #     row += 1
-    #     col = 0
-
 def main():
-    getImageAnalysis('redHand.png')
+    getImageAnalysis('images/white.png')
+    print '\n'
 
 if __name__ == '__main__':
     main()
