@@ -1,5 +1,5 @@
 from PIL import Image
-
+import scikit-learn
 def getImageAnalysis(imgName):
     print 'IMAGE: ' + imgName
 
@@ -37,8 +37,8 @@ def getImageAnalysis(imgName):
         print matrix[x]
 
 def main():
-    getImageAnalysis('images/white.png')
-    print '\n'
+    getImageAnalysis('images/Cube.png')
+    print
 
 if __name__ == '__main__':
     main()
