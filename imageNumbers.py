@@ -1,5 +1,7 @@
 from PIL import Image
-import scikit-learn
+import sklearn
+import numpy as np
+
 def getImageAnalysis(imgName):
     print 'IMAGE: ' + imgName
 
@@ -35,6 +37,10 @@ def getImageAnalysis(imgName):
     # Display results
     for x in xrange(0, 4):
         print matrix[x]
+
+    array = np.array([matrix])
+    array = array.flatten()
+    print array
 
 def main():
     getImageAnalysis('images/Cube.png')
