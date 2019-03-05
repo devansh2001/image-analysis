@@ -1,6 +1,8 @@
 from PIL import Image
 import sklearn
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 def getImageAnalysis(imgName):
     print 'IMAGE: ' + imgName
