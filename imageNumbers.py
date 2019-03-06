@@ -41,13 +41,14 @@ def getImageAnalysis(imgName):
         print matrix[x]
 
     array = np.array([matrix])
-    arrayFlat = array.flatten()
-    print array
-    print arrayFlat
+    return array
+    #arrayFlat = array.flatten()
+    #print array
+    #print arrayFlat
 
-    smallImage = Image.fromarray(array, mode = 'RGB')
+    #smallImage = Image.fromarray(array, mode = 'RGB')
     #smallImage.save('imgaes/test.png')
-    img.show()
+    #img.show()
 
 def main():
     getImageAnalysis('images/Cube.png')
