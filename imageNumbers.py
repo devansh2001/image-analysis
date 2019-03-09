@@ -41,8 +41,8 @@ def getImageAnalysis(imgName):
         print matrix[x]
 
     array = np.array([matrix])
-    return array
-    #arrayFlat = array.flatten()
+    arrayFlat = array.flatten()
+    return arrayFlat
     #print array
     #print arrayFlat
 
