@@ -3,7 +3,7 @@ import skvideo.io
 import json
 import imageNumbers as imnums
 
-FRAMES_PER_VIDEO = 6
+FRAMES_PER_VIDEO = 5
 
 def getNumberOfFrames(vidName):
     metadata = skvideo.io.ffprobe(vidName)
@@ -18,7 +18,9 @@ def convertImageToNums(vidName):
     maxFrames = getNumberOfFrames(vidName)
     count = 0
     index = 0
-    array = [[0 for i in range(0, 4)] for j in range(0, FRAMES_PER_VIDEO) ]
+    retIndex = 0
+    array = [[0 for i in range(0, 4)] for j in range(0, FRAMES_PER_VIDEO)]
+    retArr = [[0] for i in range(0, FRAMES_PER_VIDEO)]
     for i in range(1, maxFrames):
         count = count + 1
         ret, frame = video.read()
@@ -28,14 +30,22 @@ def convertImageToNums(vidName):
             array[index] = imnums.getImageAnalysis('frame_%d.jpg' % index)
             framesProcessed += 1
             index = index + 1
+            retArr[retIndex] = array
+            retIndex = retIndex + 1
+        if index == FRAMES_PER_VIDEO:
+            break;
     for x in array:
         print x
     print 'Total Processed Frames: ' + str(framesProcessed)
+    print '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n'
+    return retArr
 
 def main():
+    data = [[0] for i in range(0,3)]
     for i in range(1, 4):
-        convertImageToNums('videos/Left/left%d.mp4' % i)
+        data[i - 1] = convertImageToNums('videos/Left/left%d.mp4' % i)
         print 'Done With Video : %d' % i
+    print data
 
 if __name__ == '__main__':
     main()

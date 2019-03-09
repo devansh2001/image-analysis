@@ -19,13 +19,11 @@ X = np.array([
     [9,11]]
 )
 
-y = ['small','large','small','large','small','large']
+#y = ['small','large','small','large','small','large']
 
-clf = svm.SVC(kernel = 'linear', C = 1.0)
-clf.fit(X,y)
+# clf = svm.SVC(kernel = 'linear', C = 1.0)
+# clf.fit(X,y)
 
-print clf.predict([[100,100]])
+# print clf.predict([[100,100]])
 plt.scatter(x,y)
 plt.show()
-
-
