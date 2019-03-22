@@ -37,19 +37,32 @@ def convertImageToNums(vidName):
     print '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n'
     return retArr
 
-def runFiles():
-    recieved = convertImageToNums('videos/Left/left1.mp4')
-
 def main():
-    runFiles()
+    #runFiles()
 
-    # data = [[0] for i in range(0,3)]
-    # for i in range(1, 4):
-    #     data[i - 1] = convertImageToNums('videos/Left/left%d.mp4' % i)
-    #     print 'Done With Video : %d' % i
-    # print data
+    data = [0 for i in range(0, 50)]
+    print 'Left'
+    for i in range(1, 25):
+        print 'doing ' + str(i) + '.mp4'
+        data[i - 1] = convertImageToNums('videos/RH_Left/%d.mp4' % i)
+        print 'Done With Video : %d' % i
+
+    print 'Right'
+    for i in range(1, 26):
+        print 'doing ' + str(i) + '.mp4'
+        data[i + 24] = convertImageToNums('videos/RH_Right/%d.mp4' % i)
+        print 'Done With Video : %d' % i
+
+    print 'Now printing prepared data'
+    print data
+
+    count = 0
+    for item in data:
+        count = count + 1
+        print count
+        print item
+        for smallArray in item:
+            print smallArray
 
 if __name__ == '__main__':
     main()
-
-
