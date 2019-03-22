@@ -59,7 +59,6 @@ def runFiles():
     return data
 
 def trainAlgo(data):
-    print 'hey'
     clf = svm.SVC(kernel = 'linear', gamma = 0.001, C = 100)
     target = ['' for i in range(0, 49)]
     for i in range(0, 24):
@@ -73,12 +72,6 @@ def trainAlgo(data):
         trainData[i] = data[i]
 
     testData = data[48]
-    print 'Train: '
-    print trainData
-    print '*****************'
-    print 'Now test:'
-    print testData
-
     clf.fit(trainData, target)
     print clf.predict(testData)
 
