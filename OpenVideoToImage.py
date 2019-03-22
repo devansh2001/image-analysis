@@ -2,6 +2,8 @@ import cv2
 import skvideo.io
 import json
 import imageNumbers as imnums
+from sklearn import svm
+import matplotlib.pyplot as plt
 
 FRAMES_PER_VIDEO = 5
 
@@ -37,7 +39,7 @@ def convertImageToNums(vidName):
     print '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n'
     return retArr
 
-def main():
+def runFiles():
     #runFiles()
 
     data = [0 for i in range(0, 49)]
@@ -54,15 +56,36 @@ def main():
         print 'Done With Video : %d' % i
 
     print 'Now printing prepared data'
-    print data
+    return data
 
-    count = 0
-    for item in data:
-        count = count + 1
-        print count
-        print item
-        for smallArray in item:
-            print smallArray
+def trainAlgo(data):
+    print 'hey'
+    clf = svm.SVC(kernel = 'linear', gamma = 0.001, C = 100)
+    target = ['' for i in range(0, 49)]
+    for i in range(0, 24):
+        target[i] = 'left'
+    for i in range(24, 49):
+        target[i] = 'right'
+    print target
+
+    trainData = data
+    for i in range(0, 48):
+        trainData[i] = data[i]
+
+    testData = data[48]
+    print 'Train: '
+    print trainData
+    print '*****************'
+    print 'Now test:'
+    print testData
+
+    clf.fit(trainData, target)
+    print clf.predict(testData)
+
+def main():
+    data = runFiles()
+    trainAlgo(data)
+    print data
 
 if __name__ == '__main__':
     main()
