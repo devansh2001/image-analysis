@@ -4,6 +4,7 @@ import json
 import imageNumbers as imnums
 from sklearn import svm
 import matplotlib.pyplot as plt
+import numpy as np
 
 FRAMES_PER_VIDEO = 5
 
@@ -56,6 +57,7 @@ def runFiles():
         print 'Done With Video : %d' % i
 
     print 'Now printing prepared data'
+    np.save('data.txt', data)
     return data
 
 def trainAlgo(data):
@@ -72,6 +74,12 @@ def trainAlgo(data):
         trainData[i] = data[i]
 
     testData = data[48]
+
+    print 'Troubleshooting'
+    print trainData
+    print '**********'
+    print trainData.shape
+
     clf.fit(trainData, target)
     print clf.predict(testData)
 
