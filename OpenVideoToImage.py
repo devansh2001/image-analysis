@@ -22,7 +22,8 @@ def convertImageToNums(vidName):
     count = 0
     index = 0
     array = [0 for i in range(0, 16)]
-    retArr = [[0 for i in range(0,16)] for i in range(0, FRAMES_PER_VIDEO)]
+    retArr = [[0 for i in range(0, 80)] for i in range(0, FRAMES_PER_VIDEO)]
+    retArrIndex = 0
     for i in range(1, maxFrames):
         count = count + 1
         ret, frame = video.read()
@@ -32,12 +33,20 @@ def convertImageToNums(vidName):
             matrix = imnums.getImageAnalysis('frame_%d.jpg' % index)
             array = matrix.flatten()
             framesProcessed += 1
-            retArr[index] = array
+            print array
+
+            for val in range(0, 16):
+                print val
+                print retArrIndex
+                retArr[retArrIndex + val] = array[val]
+                retArrIndex = retArrIndex + 1
+            #retArr[index] = array
             index = index + 1
         if index == FRAMES_PER_VIDEO:
             break;
     print 'Total Processed Frames: ' + str(framesProcessed)
     print '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n'
+    print retArr
     return retArr
 
 def runFiles():
