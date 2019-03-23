@@ -40,7 +40,6 @@ def convertImageToNums(vidName):
                 print retArrIndex
                 retArr[retArrIndex + val] = array[val]
                 retArrIndex = retArrIndex + 1
-            #retArr[index] = array
             index = index + 1
         if index == FRAMES_PER_VIDEO:
             break;
