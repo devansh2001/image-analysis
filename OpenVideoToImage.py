@@ -70,7 +70,7 @@ def runFiles(data_path=None):
         print 'Done With Video : %d' % i
 
     print 'Now printing prepared data'
-    np.save('data.txt', data)
+    np.save('data', data)
     return data
 
 def trainAlgo(data):
@@ -87,6 +87,9 @@ def trainAlgo(data):
 
 
     #clf.fit(trainData, target)
+
+    # ------------- Testing -------------
+
     #scores = cross_val_score(clf, data[:48], target, cv=12)
     scores = []
     for _ in range(1000):
@@ -103,8 +106,12 @@ def trainAlgo(data):
     #print clf.predict(testData)
 
 def main():
-    data = runFiles('data.txt.npy')
-    #data = runFiles()
+    # To use existing data ---> use from 2nd execution
+    #data = runFiles('data.npy')
+
+    # To actually generate the data and store it inside data.npy ---> use for first run
+    data = runFiles()
+
     trainAlgo(data)
     print data
 
