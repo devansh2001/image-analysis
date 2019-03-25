@@ -34,7 +34,6 @@ def convertImageToNums(vidName):
             for m in xrange(0,4):
                 for n in xrange(0,4):
                     array[m * 4 + n] = matrix[m][n]
-            #array = matrix.flatten()
             print array
 
             framesProcessed += 1
@@ -50,8 +49,6 @@ def convertImageToNums(vidName):
     return retArr
 
 def runFiles():
-    #runFiles()
-
     data = [0 for i in range(0, 49)]
     print 'Left'
     for i in range(1, 25):
