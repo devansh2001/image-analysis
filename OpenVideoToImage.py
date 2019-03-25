@@ -1,10 +1,15 @@
 import cv2
 import skvideo.io
 import json
+from sklearn.model_selection import cross_val_score, train_test_split
+import seaborn as sns
 import imageNumbers as imnums
+import argparse
 from sklearn import svm
 import matplotlib.pyplot as plt
 import numpy as np
+
+sns.set_style('white')
 
 FRAMES_PER_VIDEO = 5
 
@@ -48,7 +53,9 @@ def convertImageToNums(vidName):
     print retArr
     return retArr
 
-def runFiles():
+def runFiles(data_path=None):
+    if data_path:
+        return np.load(data_path)
     data = [0 for i in range(0, 49)]
     print 'Left'
     for i in range(1, 25):
@@ -71,22 +78,33 @@ def trainAlgo(data):
     target = ['left'] * 24 + ['right'] * 24
     print target
 
-    trainData = data
-    for i in range(0, 48):
-        trainData[i] = data[i]
+    #trainData = data[:48]
+    #testData = data[48].reshape(1, -1)
 
-    testData = data[48]
+    #print 'Troubleshooting'
+    #print trainData
+    #print '**********'
 
-    print 'Troubleshooting'
-    print trainData
-    print '**********'
-    #print trainData.shape
 
-    clf.fit(trainData, target)
-    print clf.predict(testData)
+    #clf.fit(trainData, target)
+    #scores = cross_val_score(clf, data[:48], target, cv=12)
+    scores = []
+    for _ in range(1000):
+        X_train, X_test, y_train, y_test = train_test_split(data[:48], target,
+                                                            test_size=2, shuffle=True)
+        clf.fit(X_train, y_train)
+        scores.append(clf.score(X_test, y_test))
+
+    print scores
+    sns.distplot(scores)
+    plt.show()
+
+
+    #print clf.predict(testData)
 
 def main():
-    data = runFiles()
+    data = runFiles('data.txt.npy')
+    #data = runFiles()
     trainAlgo(data)
     print data
 
