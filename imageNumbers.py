@@ -40,9 +40,9 @@ def getImageAnalysis(imgName):
     for x in xrange(0, 4):
         print matrix[x]
 
-    array = np.array([matrix])
-    arrayFlat = array.flatten()
-    return arrayFlat
+    #array = np.array([matrix])
+    #arrayFlat = array.flatten()
+    return matrix
     #print array
     #print arrayFlat
 

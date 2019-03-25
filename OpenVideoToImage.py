@@ -22,7 +22,7 @@ def convertImageToNums(vidName):
     count = 0
     index = 0
     array = [0 for i in range(0, 16)]
-    retArr = [[0 for i in range(0, 80)] for i in range(0, FRAMES_PER_VIDEO)]
+    retArr = [0 for i in range(0, 80)]
     retArrIndex = 0
     for i in range(1, maxFrames):
         count = count + 1
@@ -31,15 +31,16 @@ def convertImageToNums(vidName):
             count = 0
             cv2.imwrite('frame_%d.jpg' % index, frame)
             matrix = imnums.getImageAnalysis('frame_%d.jpg' % index)
-            array = matrix.flatten()
-            framesProcessed += 1
+            for m in xrange(0,4):
+                for n in xrange(0,4):
+                    array[m * 4 + n] = matrix[m][n]
+            #array = matrix.flatten()
             print array
 
+            framesProcessed += 1
             for val in range(0, 16):
-                print val
-                print retArrIndex
-                retArr[retArrIndex + val] = array[val]
-                retArrIndex = retArrIndex + 1
+                retArr[retArrIndex * 16 + val] = array[val]
+            retArrIndex = retArrIndex + 1
             index = index + 1
         if index == FRAMES_PER_VIDEO:
             break;
@@ -86,7 +87,7 @@ def trainAlgo(data):
     print 'Troubleshooting'
     print trainData
     print '**********'
-    print trainData.shape
+    #print trainData.shape
 
     clf.fit(trainData, target)
     print clf.predict(testData)
