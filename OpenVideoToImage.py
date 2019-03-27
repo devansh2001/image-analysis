@@ -64,9 +64,14 @@ def runFiles(data_path=None):
         print 'Done With Video : %d' % i
 
     print 'Right'
-    for i in range(1, 26):
+    for i in range(1, 25):
         print 'doing ' + str(i) + '.mp4'
         data[i + 23] = convertImageToNums('videos/RH_Right/%d.mp4' % i)
+        print 'Done With Video : %d' % i
+
+    for i in range(1,2):
+        print 'doing ' + str(i) + '.mp4'
+        data[i + 47] = convertImageToNums('videos/Tests/%d.mp4' % i)
         print 'Done With Video : %d' % i
 
     print 'Now printing prepared data'
