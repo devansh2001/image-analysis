@@ -104,6 +104,7 @@ def trainAlgo(data):
         scores.append(clf.score(X_test, y_test))
 
     print scores
+    print len(scores)
     sns.distplot(scores)
     plt.show()
 
