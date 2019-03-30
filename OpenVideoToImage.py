@@ -107,16 +107,6 @@ def trainAlgo(data):
     target = ['left'] * RH_Left + ['right'] * RH_Right + ['pinch_in'] * RH_PinchIn + ['pinch_out'] * RH_PinchOut
     print target
 
-    #trainData = data[:48]
-    #testData = data[48].reshape(1, -1)
-
-    #print 'Troubleshooting'
-    #print trainData
-    #print '**********'
-
-
-    #clf.fit(trainData, target)
-
     # ------------- Testing -------------
     mySum = RH_Right + RH_Left + RH_PinchIn + RH_PinchOut
 
