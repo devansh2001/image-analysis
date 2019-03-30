@@ -12,6 +12,11 @@ import numpy as np
 sns.set_style('white')
 
 FRAMES_PER_VIDEO = 5
+dataIndex = 0
+RH_Left = 24
+RH_Right = 25
+RH_PinchIn = 25
+RH_PinchOut = 22
 
 def getNumberOfFrames(vidName):
     metadata = skvideo.io.ffprobe(vidName)
@@ -56,23 +61,42 @@ def convertImageToNums(vidName):
 def runFiles(data_path=None):
     if data_path:
         return np.load(data_path)
-    data = [0 for i in range(0, 49)]
+    dataIndex = 0
+    data = [0 for i in range(0, RH_Right + RH_Left + RH_PinchIn + RH_PinchOut)]
     print 'Left'
-    for i in range(1, 25):
+    for i in range(0, RH_Left):
         print 'doing ' + str(i) + '.mp4'
-        data[i - 1] = convertImageToNums('videos/RH_Left/%d.mp4' % i)
+        data[dataIndex] = convertImageToNums('videos/RH_Left/%d.mp4' % (i + 1))
+        dataIndex = dataIndex + 1
         print 'Done With Video : %d' % i
 
     print 'Right'
-    for i in range(1, 25):
+    for i in range(0, RH_Right):
         print 'doing ' + str(i) + '.mp4'
-        data[i + 23] = convertImageToNums('videos/RH_Right/%d.mp4' % i)
+        data[dataIndex] = convertImageToNums('videos/RH_Right/%d.mp4' % (i + 1))
+        dataIndex = dataIndex + 1
         print 'Done With Video : %d' % i
 
-    for i in range(1,2):
+    print 'Pinch In'
+    for i in range(0, RH_PinchIn):
         print 'doing ' + str(i) + '.mp4'
-        data[i + 47] = convertImageToNums('videos/Tests/%d.mp4' % i)
+        data[dataIndex] = convertImageToNums('videos/RH_PinchIn/%d.mp4' % (i + 1))
+        dataIndex = dataIndex + 1
         print 'Done With Video : %d' % i
+
+    print 'Pinch Out'
+    for i in range(0, RH_PinchOut):
+        print 'doing ' + str(i) + '.mp4'
+        data[dataIndex] = convertImageToNums('videos/RH_PinchOut/%d.mp4' % (i + 1))
+        dataIndex = dataIndex + 1
+        print 'Done With Video : %d' % i
+
+    print len(data)
+
+    # for i in range(1,2):
+    #     print 'doing ' + str(i) + '.mp4'
+    #     data[i + 47] = convertImageToNums('videos/Tests/%d.mp4' % i)
+    #     print 'Done With Video : %d' % i
 
     print 'Now printing prepared data'
     np.save('data', data)
@@ -80,7 +104,7 @@ def runFiles(data_path=None):
 
 def trainAlgo(data):
     clf = svm.SVC(kernel = 'linear', gamma = 0.001, C = 100)
-    target = ['left'] * 24 + ['right'] * 24
+    target = ['left'] * RH_Left + ['right'] * RH_Right + ['pinch_in'] * RH_PinchIn + ['pinch_out'] * RH_PinchOut
     print target
 
     #trainData = data[:48]
@@ -94,14 +118,19 @@ def trainAlgo(data):
     #clf.fit(trainData, target)
 
     # ------------- Testing -------------
+    mySum = RH_Right + RH_Left + RH_PinchIn + RH_PinchOut
 
-    #scores = cross_val_score(clf, data[:48], target, cv=12)
-    scores = []
-    for _ in range(1000):
-        X_train, X_test, y_train, y_test = train_test_split(data[:48], target,
-                                                            test_size=2, shuffle=True)
-        clf.fit(X_train, y_train)
-        scores.append(clf.score(X_test, y_test))
+
+    # Test 1 ----> K Cross Validation Testing
+    scores = cross_val_score(clf, data[:mySum], target, cv=12)
+
+    # Test 2 ----> Test Split Testing
+    # scores = []
+    # for _ in range(1000):
+    #     X_train, X_test, y_train, y_test = train_test_split(data[:mySum], target,
+    #                                                         test_size=2, shuffle=True)
+    #     clf.fit(X_train, y_train)
+    #     scores.append(clf.score(X_test, y_test))
 
     print scores
     print len(scores)
